@@ -109,9 +109,9 @@ def train():
     net = Resnet().to(device)
     net.apply(weights_init)
 
-    if(os.path.exists('./mini_resnet_trained.pth')):
-        print("loading from mini_resnet_trained.pth...")
-        net.load_state_dict(torch.load('./mini_resnet_trained.pth'))
+    if(os.path.exists('./pre_trained/mini_resnet.pth')):
+        print("loading from ./pre_trained/mini_resnet.pth...")
+        net.load_state_dict(torch.load('./pre_trained/mini_resnet.pth'))
         net.eval()
 
     loss_fn = nn.CrossEntropyLoss()
@@ -134,7 +134,7 @@ def train():
 
         print('epoch : %d , loss = %.3f' % (epoch+1, running_loss / 6250))
 
-    torch.save(net.state_dict(), './mini_resnet_trained.pth')
+    torch.save(net.state_dict(), './pre_trained/mini_resnet.pth')
 
     print(' Finished Training \n')
 

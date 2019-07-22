@@ -87,9 +87,9 @@ def train():
 
     net = MiniVGG().to(device)
 
-    if(os.path.exists('./minivgg_trained.pth')):
-        print("loading from minivgg_trained.pth...")
-        net.load_state_dict(torch.load('./minivgg_trained.pth'))
+    if(os.path.exists('./pre_trained/mini_vgg.pth')):
+        print("loading from ./pre_trained/mini_vgg.pth...")
+        net.load_state_dict(torch.load('./pre_trained/mini_vgg.pth'))
         net.eval()
 
     print("===> Begin Training...")
@@ -113,8 +113,8 @@ def train():
         print('epoch : %d , loss = %.3f' % (epoch+1, running_loss / 6250))
         if (running_loss / 6250) < 0.05:
             break
-    print(' Finished Training, save model to minivgg_trained.pth')
-    torch.save(net.state_dict(), './minivgg_trained.pth')
+    print(' Finished Training, save model to mini_vgg.pth')
+    torch.save(net.state_dict(), './pre_trained/mini_vgg.pth')
 
     return net
 
