@@ -1,2 +1,4 @@
 tasks:
-  - init: pyenv local 3.8.2 && pip install tensorflow
+  - init: pyenv local 3.8.2 
+image:
+  file: .gitpod.Dockerfile
