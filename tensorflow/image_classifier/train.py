@@ -39,28 +39,27 @@ for i, (img, label) in enumerate(ds_train.unbatch().take(9)):
     ax.set_yticks([])
 plt.show()
 
-inputs = layers.Input(shape=(32, 32, 3))
-x = layers.Conv2D(32, kernel_size=(3, 3))(inputs)
-x = layers.MaxPool2D()(x)
-x = layers.Conv2D(64, kernel_size=(5, 5))(x)
-x = layers.MaxPool2D()(x)
-x = layers.Dropout(rate=0.1)(x)
-x = layers.Flatten()(x)
-x = layers.Dense(32, activation='relu')(x)
-outputs = layers.Dense(1, activation='sigmoid')(x)
 
-model = models.Model(inputs=inputs, outputs=outputs)
+def createModel():
+    inputs = layers.Input(shape=(32, 32, 3))
+    x = layers.Conv2D(32, kernel_size=(3, 3))(inputs)
+    x = layers.MaxPool2D()(x)
+    x = layers.Conv2D(64, kernel_size=(5, 5))(x)
+    x = layers.MaxPool2D()(x)
+    x = layers.Dropout(rate=0.1)(x)
+    x = layers.Flatten()(x)
+    x = layers.Dense(32, activation='relu')(x)
+    outputs = layers.Dense(1, activation='sigmoid')(x)
 
+    return models.Model(inputs=inputs, outputs=outputs)
+
+
+model = createModel()
 model.summary()
-
 
 stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 logdir = dir + "/log_"+stamp
 
-# 在 Python3 下建议使用 pathlib 修正各操作系统的路径
-# from pathlib import Path
-# stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-# logdir = str(Path('./data/autograph/' + stamp))
 
 tensorboard_callback = tf.keras.callbacks.TensorBoard(logdir, histogram_freq=1)
 
